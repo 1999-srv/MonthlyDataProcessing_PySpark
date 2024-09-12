@@ -53,5 +53,6 @@ The script will print and display the records for each year and month combinatio
 
 # File Structure
 **Data Source**: /FileStore/tables/Sales_SalesOrderDetail.csv
+
 **Columns**:
 SalesOrderID, SalesOrderDetailID, CarrierTrackingNumber, OrderQty, ProductID, UnitPrice, UnitPriceDiscount, LineTotal, OrderDate.
