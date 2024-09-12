@@ -7,6 +7,7 @@ Sales data stored in a CSV file with columns such as SalesOrderID, OrderQty, Pro
 # Script Overview
 Step 1: Define Schema
 The schema for the CSV file is defined using PySpark's StructType to ensure proper data types for each column, including converting the OrderDate column to a DateType.
+
 schema = StructType([
     StructField("SalesOrderID", IntegerType(), True),
     StructField("SalesOrderDetailID", IntegerType(), True),
@@ -16,16 +17,19 @@ schema = StructType([
 
 Step 2: Load the CSV Data
 The data is loaded from a CSV file using the defined schema. The OrderDate is cast to a timestamp for further processing.
+
 df = spark.read.format('csv').option('header', 'false').schema(schema).load("/FileStore/tables/Sales_SalesOrderDetail.csv")
 df = df.withColumn("OrderDate", df["OrderDate"].cast("timestamp"))
 
 Step 3: Extract Year and Month
 The script extracts the year and month from the OrderDate column using PySpark functions and adds them as new columns (Year, Month).
+
 df = df.withColumn("Year", year(df["OrderDate"]))
 df = df.withColumn("Month", month(df["OrderDate"]))
 
 Step 4: Filter Data by Month
 Using the distinct year and month values, the script iterates through the data and filters records for each specific month. It stores the filtered data in a dictionary and displays the first 5 rows for each month.
+
 distinct_months = df.select("Year", "Month").distinct().orderBy("Year", "Month").collect()
 for row in distinct_months:
     year_val = row['Year']
