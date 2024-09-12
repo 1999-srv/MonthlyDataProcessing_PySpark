@@ -30,10 +30,8 @@ distinct_months = df.select("Year", "Month").distinct().orderBy("Year", "Month")
 for row in distinct_months:
     year_val = row['Year']
     month_val = row['Month']
-    
     # Filter data for the specific year and month
     monthly_df = df.filter((df["Year"] == year_val) & (df["Month"] == month_val))
-    
     # Print and display the data
     print(f"Data for {year_val}-{month_val:02d}:")
     monthly_df.show(5)
