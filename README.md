@@ -27,7 +27,6 @@ df = df.withColumn("Month", month(df["OrderDate"]))
 Step 4: Filter Data by Month
 Using the distinct year and month values, the script iterates through the data and filters records for each specific month. It stores the filtered data in a dictionary and displays the first 5 rows for each month.
 distinct_months = df.select("Year", "Month").distinct().orderBy("Year", "Month").collect()
-
 for row in distinct_months:
     year_val = row['Year']
     month_val = row['Month']
